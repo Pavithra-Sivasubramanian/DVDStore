@@ -1,0 +1,34 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-5.3.5.dtd"> 
+
+<hibernate-mapping>
+    <class name = "com.ideas2it.dvdstore.model.Customer" table = "CUSTOMER">
+      
+        <meta attribute = "class-description">
+            This class contains the customer details. 
+        </meta>
+      
+        <id name = "id" type = "int" column = "ID">
+            <generator class="increment"/>
+        </id>
+      
+        <property name = "name" column = "NAME" type = "string"/>
+        <property name = "password" column = "PASSWORD" type = "string"/>
+        <property name = "contactNo" column = "CONTACT_NO" type = "string"/>
+        <property name = "email" column = "EMAIL" type = "string"/>
+        <property name = "status" column = "STATUS" type = "boolean"/>
+        <many-to-one name = "user" cascade ="all" unique="true" 
+            column = "USER" class="com.ideas2it.dvdstore.model.User" />
+        <bag name = "addresses" lazy = "false" cascade ="all">
+            <key column = "CUSTOMER_ID"/>
+            <one-to-many class="com.ideas2it.dvdstore.model.Address"/>
+        </bag>
+        <set name = "orders" lazy = "false" cascade = "all">
+            <key column = "CUSTOMER_ID"/>
+            <one-to-many class="com.ideas2it.dvdstore.model.Order"/> 
+        </set>
+       
+    </class>
+</hibernate-mapping>
